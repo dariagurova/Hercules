@@ -1,11 +1,10 @@
 import os
 import sys
 
-class bc:
-    HEADER = '\033[95m'
+class color:
     BLUE = '\033[94m'
     GREEN = '\033[92m'
-    FAIL = '\033[91m'
+    RED = '\033[91m'
     RESET = '\033[0m'
 
 HOME = os.environ['HOME']
@@ -15,19 +14,19 @@ lang = sys.argv[2]
 path = HOME + '/' + name
 
 if not len(sys.argv) > 2:
-	print bc.FAIL + " -> usage: python birds.py [name] [language] <-"  + bc.RESET
+	print color.RED + " -> usage: python birds.py [name] [language] <-"  + color.RESET
 	sys.exit()
 
 def header_file( name ):
 	header = open(path + '/' + name + '.h','wr+')
 	header.write('#ifndef ' + name.upper() + '_H\n# define ' + name.upper() + '_H\n\n# include <libraries>\n\n#endif')
-	print bc.GREEN + ' => ' + name + '.h created.\n' + bc.RESET
+	print color.GREEN + ' => ' + name + '.h created.\n' + color.RESET
 	header.close()
 
 def author_file( name ):
 	author = open(path + '/' + 'author','wr+')
 	author.write(login + '\n')
-	print bc.GREEN + ' => author file was created.\n' + bc.RESET
+	print color.GREEN + ' => author file was created.\n' + color.RESET
 	author.close()
 
 def gitignore( lang, name ):
@@ -35,7 +34,7 @@ def gitignore( lang, name ):
 	gitignore.write('# System Files\n*.DS*\n*.swp*\n*._*\n*.dll\n\n')
 	if (lang == 'C' or lang == 'c'):
 		gitignore.write('# C files\n*.o\n\n# Executables\n*.exe\n*.out\n\n# Debug Files\n*.dSYM/\n\n')
-	print bc.GREEN + ' => .gitignore added.\n' + bc.RESET
+	print color.GREEN + ' => .gitignore added.\n' + color.RESET
 	gitignore.close()
 
 def makefile( name ):
@@ -50,14 +49,14 @@ def makefile( name ):
 				os.system('mkdir ' + path + '/libft')
 			os.system('cp -a ' + HOME + '/' + libft + '/. ' + path + '/libft/')
 		else:
-			print bc.FAIL + " Error: libft/ directory was not found " + HOME + bc.RESET
+			print color.RED + " Error: libft/ directory was not found " + HOME + color.RESET
 		lft = "\tmake -C libft/\n"
 		Lflag = " -L libft -lft"
-		print bc.GREEN + " => libft/ added to project.\n" + bc.RESET
+		print color.GREEN + " => libft/ added to project.\n" + color.RESET
 	rules = "$(name): $(OBJ)\n" + lft + "\t$(CC) $(OBJ) -o $(name)" + Lflag + '\n\n'
 	file.write('\n\n' + 'CC = gcc -Wall -Wextra -Werror\n\n')
 	file.write(rules + 'all: $(name)\n\nclean:\n\t@rm -rf $(OBJ)\n\nfclean: clean\n\t@rm -rf $(name) $(OBJ) \n\nre: fclean $(name)')
-	print bc.GREEN + ' => Makefile will create exe ./' + name + '\n' + bc.RESET
+	print color.GREEN + ' => Makefile will create exe ./' + name + '\n' + color.RESET
 	file.close()
 
 def create_project( lang, name ):
@@ -69,9 +68,9 @@ def create_project( lang, name ):
 		author_file(name)
 if not os.path.exists(path):
 	os.makedirs(path)
-	print bc.GREEN + '\n => created directory ' + path + '\n' + bc.RESET
+	print color.GREEN + '\n => created directory ' + path + '\n' + color.RESET
 else:
-	print bc.GREEN + ' => directory ' + path + ' already exists.\n' + bc.RESET
+	print color.GREEN + ' => directory ' + path + ' already exists.\n' + color.RESET
 create_project(lang, name)
 
-print bc.BLUE + '\n -> Project was created. <- \n' + bc.RESET
+print color.BLUE + '\n -> Project was created. <- \n' + color.RESET
