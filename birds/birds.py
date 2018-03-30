@@ -56,7 +56,7 @@ def makefile( name ):
 	rules = "$(name): $(OBJ)\n" + lft + "\t$(CC) $(OBJ) -o $(name)" + Lflag + '\n\n'
 	file.write('\n\n' + 'CC = gcc -Wall -Wextra -Werror\n\n')
 	file.write(rules + 'all: $(name)\n\nclean:\n\t@rm -rf $(OBJ)\n\nfclean: clean\n\t@rm -rf $(name) $(OBJ) \n\nre: fclean $(name)')
-	print color.GREEN + ' => Makefile will create exe ./' + name + '\n' + color.RESET
+	print color.GREEN + ' => executable ' + name + 'will be created' + '\n' + color.RESET
 	file.close()
 
 def create_project( lang, name ):
@@ -68,9 +68,9 @@ def create_project( lang, name ):
 		author_file(name)
 if not os.path.exists(path):
 	os.makedirs(path)
-	print color.GREEN + '\n => created directory ' + path + '\n' + color.RESET
+	print color.GREEN + '\n' + path + 'directory was created' + '\n' + color.RESET
 else:
-	print color.GREEN + ' => directory ' + path + ' already exists.\n' + color.RESET
+	print color.GREEN + ' => directory ' + path + 'already exists.\n' + color.RESET
 create_project(lang, name)
 
 print color.BLUE + '\n -> Project was created. <- \n' + color.RESET
